@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: LW Posts Widget
-Plugin URI: https://github.com/livewyer/wp_posts_widget
+Plugin URI: https://github.com/livewyer/lw_posts_widget
 Description: Create a widget with a list of posts in WordPress.  Right now only for a selected category.
 Author: Livewyer
 Version: 0.1
