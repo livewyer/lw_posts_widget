@@ -10,7 +10,7 @@ Version: 0.1
 class lw_CustomPost_Widget extends WP_Widget {
   /** constructor */
 	function __construct() {
-		parent::WP_Widget( 'lw_post_widget', 'lw_Posts_Widget', array( 'description' => 'Creates a list of posts within a specified category.' ) );
+		parent::WP_Widget( 'lw_post_widget', 'Posts Widget', array( 'description' => 'Creates a list of posts within a specified category.' ) );
 	}
 
 	/** @see WP_Widget::widget */
@@ -71,20 +71,22 @@ class lw_CustomPost_Widget extends WP_Widget {
 		</p>
 		<?php 
 	}
-
-
-	function lw_posts_widget($options) {
-	    $posts_list = get_posts( $options );
-	    $items = '';
-
-	    foreach($posts_list as $catpost) : setup_postdata($catpost);
-		$formatted_date = date('n-j-Y', strtotime(substr($catpost->post_date, 0, 10)));
-		$items .= '<li><a href="' . get_permalink($catpost->ID) . '" rel="bookmark" title="Permanent link to ' . $catpost->post_title . '">' . $catpost->post_title . '</a> (' . $formatted_date . ')</li>';
-	    endforeach;
-	    
-	    return $items;
-	}
 } // class Foo_Widget
+
+/**
+ * Function to create widget markup
+ */
+function lw_posts_widget($options) {
+    $posts_list = get_posts( $options );
+    $items = '';
+
+    foreach($posts_list as $catpost) : setup_postdata($catpost);
+	$formatted_date = date('n-j-Y', strtotime(substr($catpost->post_date, 0, 10)));
+	$items .= '<li><a href="' . get_permalink($catpost->ID) . '" rel="bookmark" title="Permanent link to ' . $catpost->post_title . '">' . $catpost->post_title . '</a> (' . $formatted_date . ')</li>';
+    endforeach;
+    
+    return $items;
+}
 
 // Register widget
 add_action( 'widgets_init', create_function( '', 'register_widget("lw_CustomPost_Widget");' ) );
